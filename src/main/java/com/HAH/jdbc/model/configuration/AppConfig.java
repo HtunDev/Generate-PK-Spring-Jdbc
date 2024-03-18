@@ -7,6 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
@@ -27,5 +28,13 @@ public class AppConfig {
 	@Bean
 	public JdbcTemplate getTemplate(DataSource dataSource) {
 		return new JdbcTemplate(dataSource);
+	}
+
+	@Bean
+	public SimpleJdbcInsert categoryInsert(DataSource dataSource) {
+		var insert = new SimpleJdbcInsert(dataSource);
+		insert.setGeneratedKeyName("id");
+		insert.setTableName("category");
+		return insert;
 	}
 }
