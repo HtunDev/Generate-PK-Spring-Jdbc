@@ -1,12 +1,13 @@
 package com.HAH.jdbc.model.dao;
 
-import java.sql.Statement;
-
+import java.sql.Types;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcOperations;
-import org.springframework.jdbc.core.PreparedStatementCallback;
 import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.PreparedStatementCreatorFactory;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Service;
 
 import com.HAH.jdbc.model.dto.Category;
@@ -21,21 +22,13 @@ public class CategoryDao {
 	private String insertSql;
 
 	public int create(Category c) {
-		PreparedStatementCreator creator = conn -> {
-			var stmt = conn.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS);
-			stmt.setString(1, c.getName());
-			return stmt;
-		};
 
-		PreparedStatementCallback<Integer> callback = stmt -> {
-			stmt.executeUpdate();
-			var rs = stmt.getGeneratedKeys();
+		PreparedStatementCreatorFactory factory = new PreparedStatementCreatorFactory(insertSql, Types.VARCHAR);
+		factory.setReturnGeneratedKeys(true);
+		PreparedStatementCreator creator = factory.newPreparedStatementCreator(List.of(c.getName()));
 
-			while (rs.next()) {
-				return rs.getInt(1);
-			}
-			return 0;
-		};
-		return jdbc.execute(creator, callback);
+		var keyholder = new GeneratedKeyHolder();
+		jdbc.update(creator, keyholder);
+		return keyholder.getKey().intValue();
 	}
 }
