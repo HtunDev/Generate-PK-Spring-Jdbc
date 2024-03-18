@@ -26,6 +26,11 @@
 		<property name="TableName" value="category"></property>
 	</bean>
 
+	<bean id="namedTemplate"
+		class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+		<constructor-arg ref="hsqlDatasource"></constructor-arg>
+	</bean>
+
 	<bean id="jdbcTemplate"
 		class="org.springframework.jdbc.core.JdbcTemplate">
 		<constructor-arg ref="hsqlDatasource"></constructor-arg>

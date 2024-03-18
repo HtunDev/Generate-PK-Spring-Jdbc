@@ -3,16 +3,15 @@ package com.HAH.jdbc.model.dao;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
+
 import com.HAH.jdbc.model.dto.Category;
 
-@Service
+@Repository
 public class CategoryDao {
 
 	@Autowired
