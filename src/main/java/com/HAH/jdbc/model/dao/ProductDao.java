@@ -20,12 +20,13 @@ public class ProductDao {
 
 	public int create(Product p) {
 		var key = new GeneratedKeyHolder();
+		 
 		var params = new MapSqlParameterSource();
 		params.addValue("name", p.getName());
 		params.addValue("categoryId", p.getCategory().getId());
 		params.addValue("price", p.getPrice());
 
-		jdbc.update(create, null, key);
+		jdbc.update(create, params, key);
 		return key.getKey().intValue();
 	}
 
