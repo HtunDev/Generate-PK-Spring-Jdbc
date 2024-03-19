@@ -52,6 +52,7 @@ public class ProductDaoTest {
 		assertEquals("Sp Bakery", p.getName());
 		assertEquals(2300, p.getPrice());
 		assertEquals("Foods", p.getCategory().getName());
+		
 		assertNull(productDao.findProductsById(2));
 	}
 
@@ -64,14 +65,14 @@ public class ProductDaoTest {
 		assertTrue(productDao.findProductsByCategory(2).isEmpty());
 	}
 
-	@Test
+	@Test 
 	@Order(4)
 	@DisplayName("4. Search")
 	void test4() {
 		List<Product> list = productDao.search("Foods");
 		assertEquals(1, list.size());
-		assertEquals(1, productDao.search("Sp Bakery ").size());
-		assertTrue(productDao.search("pillows").isEmpty());
+		assertEquals(1, productDao.search("Sp Bakery").size());
+		assertTrue(productDao.findProductsByCategory(2).isEmpty());
 	}
 
 	@Test

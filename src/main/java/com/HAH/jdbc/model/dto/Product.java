@@ -39,4 +39,18 @@ public class Product {
 		this.price = price;
 	}
 
+	public void setCategoryId(int id) {
+		if(null == category) {
+			category = new Category();
+		}
+		category.setId(id);
+	}
+
+	public void setCategoryName(String Name) {
+		if(null == category) {
+			category = new Category();
+		}
+		category.setName(Name);
+	}
+
 }
